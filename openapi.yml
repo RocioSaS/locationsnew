@@ -1,0 +1,116 @@
+---
+openapi: 3.0.2
+info:
+  title: Locations-UserMI14176
+  version: 1.0.0
+  description: Locations API
+paths:
+  /locations:
+    summary: Path used to manage the list of locations.
+    description: "The REST endpoint/path used to list and create zero or more `Location`\
+      \ entities.  This path contains a `GET` and `POST` operation to perform the\
+      \ list and create tasks, respectively."
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+          description: Successful response - returns an array of `Location` entities.
+      operationId: getLocations
+      summary: List All Locations
+      description: Gets a list of all `Location` entities.
+    post:
+      requestBody:
+        description: A new `Location` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+        required: true
+      responses:
+        "201":
+          description: Successful response.
+      operationId: createLocation
+      summary: Create a Location
+      description: Creates a new instance of a `Location`.
+  /locations/{locationId}:
+    summary: Path used to manage a single Location.
+    description: "The REST endpoint/path used to get, update, and delete single instances\
+      \ of an `Location`.  This path contains `GET`, `PUT`, and `DELETE` operations\
+      \ used to perform the get, update, and delete tasks, respectively."
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: Successful response - returns a single `Location`.
+      operationId: getLocation
+      summary: Get a Location
+      description: Gets the details of a single instance of a `Location`.
+    put:
+      requestBody:
+        description: Updated `Location` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+        required: true
+      responses:
+        "202":
+          description: Successful response.
+      operationId: updateLocation
+      summary: Update a Location
+      description: Updates an existing `Location`.
+    delete:
+      responses:
+        "204":
+          description: Successful response.
+      operationId: deleteLocation
+      summary: Delete a Location
+      description: Deletes an existing `Location`.
+    parameters:
+    - name: locationId
+      description: A unique identifier for a `Location`.
+      schema:
+        type: string
+      in: path
+      required: true
+components:
+  schemas:
+    Location:
+      title: Root Type for Location
+      description: Location
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        name:
+          type: string
+        location:
+          type: object
+          properties:
+            lat:
+              format: double
+              type: number
+            lng:
+              format: double
+              type: number
+        type:
+          type: string
+        status:
+          type: string
+      example:
+        id: 1
+        name: International Inc Corporate Office
+        location:
+          lat: 51.5013673
+          lng: -0.1440787
+        type: headquarter
+        status: "1"
